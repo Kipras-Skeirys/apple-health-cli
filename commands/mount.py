@@ -1,5 +1,6 @@
-from core.errors import AHCliError
 import xml.etree.ElementTree as ET
+
+from core.errors import AHCliError
 
 
 def validate_file(path):
@@ -16,6 +17,40 @@ def validate_file(path):
     if first_elem.tag != "HealthData":
         raise AHCliError(f"'{path}' does not contain valid Apple Health data")
 
+
+def build_summary(path) -> dict:
+    summary = {}
+
+    context = ET.iterparse(path, events=("start", "end"))
+
+    try:
+        depth = 0
+        root = None
+
+        for event, elem in context:
+            if event == "end":
+                depth -= 1
+                if depth == 1:
+                    root.clear()
+                else:
+                    elem.clear()
+                continue
+
+            if root is None:
+                root = elem
+            depth += 1
+
+            if elem.tag == "Record" and depth == 2:
+                data_type_name = elem.get("type")
+                if data_type_name not in summary:
+                    summary[data_type_name] = {"count": 0}
+                summary[data_type_name]["count"] += 1
+    except ET.ParseError:
+        raise AHCliError(f"'{path}' appears to be damaged or incomplete")
+
+    return summary
+
+
 def mount(path):
     validate_file(path)
-    pass
+    summary = build_summary(path)
