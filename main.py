@@ -1,3 +1,7 @@
+from commands.mount import mount
+from core.errors import AHCliError
+from pathlib import Path
+import sys
 import argparse
 
 
@@ -6,7 +10,7 @@ def main():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     parser_mount = subparsers.add_parser("mount")
-    parser_mount.add_argument("path")
+    parser_mount.add_argument("path", type=Path)
 
     parser_add = subparsers.add_parser("add")
     parser_add.add_argument("data_types")
@@ -22,22 +26,31 @@ def main():
     subparsers.add_parser("export")
 
     args = parser.parse_args()
-
-    match args.command:
-        case "mount":
-            pass
-        case "add":
-            pass
-        case "status":
-            pass
-        case "edit":
-            pass
-        case "remove":
-            pass
-        case "export":
-            pass
-        case _:
-            pass
+    try:
+        match args.command:
+            case "mount":
+                mount(args.path)
+            case "add":
+                pass
+            case "status":
+                pass
+            case "edit":
+                pass
+            case "remove":
+                pass
+            case "export":
+                pass
+            case _:
+                pass
+    except AHCliError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError as e:
+        print(f"Permission denied: '{e.filename}'. Check the file's permissions.", file=sys.stderr)
+        sys.exit(1)
+    except OSError as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
         
 if __name__ == "__main__":
     main()
