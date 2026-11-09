@@ -1,8 +1,9 @@
-from commands.mount import mount
-from core.errors import AHCliError
 from pathlib import Path
 import sys
 import argparse
+
+from commands.mount import mount
+from core.errors import AHCliError
 
 
 def main():
@@ -25,7 +26,7 @@ def main():
 
     subparsers.add_parser("export")
 
-    args = parser.parse_args()
+    args = parser.parse_args() 
     try:
         match args.command:
             case "mount":
@@ -51,6 +52,7 @@ def main():
     except OSError as e:
         print(e, file=sys.stderr)
         sys.exit(1)
-        
+
+
 if __name__ == "__main__":
     main()
