@@ -3,6 +3,15 @@ import xml.etree.ElementTree as ET
 from core.errors import AHCliError
 
 
+PREFIXES = [
+    "HKQuantityTypeIdentifier",
+    "HKCategoryTypeIdentifier",
+    "HKCharacteristicTypeIdentifier",
+    "HKWorkoutActivityType",
+    "HKDataType",
+]
+
+
 def validate_file(path):
     if not path.exists():
         raise AHCliError(f"'{path}' does not exist")
@@ -41,7 +50,7 @@ def build_summary(path) -> dict:
             depth += 1
 
             if elem.tag == "Record" and depth == 2:
-                data_type_name = elem.get("type")
+                data_type_name = short_name(elem.get("type"))
                 if data_type_name not in summary:
                     summary[data_type_name] = {"count": 0}
                 summary[data_type_name]["count"] += 1
@@ -49,6 +58,14 @@ def build_summary(path) -> dict:
         raise AHCliError(f"'{path}' appears to be damaged or incomplete")
 
     return summary
+
+
+def short_name(identifier) -> str:
+    for prefix in PREFIXES:
+        if identifier.startswith(prefix):
+            return identifier.removeprefix(prefix)
+
+    return identifier
 
 
 def mount(path):
