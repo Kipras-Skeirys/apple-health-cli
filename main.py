@@ -6,7 +6,7 @@ from commands.mount import mount
 from core.errors import AHCliError
 
 
-def main() ->  None:
+def main() -> None:
     parser = argparse.ArgumentParser(description="Edit Apple Health export data")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -32,17 +32,17 @@ def main() ->  None:
             case "mount":
                 mount(args.path)
             case "add":
-                pass
+                raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "status":
-                pass
+                raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "edit":
-                pass
+                raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "remove":
-                pass
+                raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "export":
-                pass
+                raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case _:
-                pass
+                raise AHCliError(f"'{args.command}': command does not exist")
     except AHCliError as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
