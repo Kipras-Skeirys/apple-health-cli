@@ -6,7 +6,7 @@ A command-line tool for editing Apple Health exports.<br>
 Keep only the data and date ranges you need, and remove personal information.
 
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow?style=flat-square)
-![Stage 1](https://img.shields.io/badge/stage%201-6%2F13-yellow?style=flat-square)
+![Stage 1](https://img.shields.io/badge/stage%201-7%2F13-yellow?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 
 </div>
@@ -78,14 +78,14 @@ python3 main.py export                               # write the filtered XML
 ┣━━ [x] Set up the project repo with a README
 ┃
 ◐  STAGE 1 · Basic functionality (MVP) ··············· IN PROGRESS
-│  █████████░░░░░░░░░░░  6/13
+│  ███████████░░░░░░░░░  7/13
 │
 ├── [x] mount command
 │   ├── [x] Accept file with valid Apple Health data
 │   ├── [x] Count each data type
 │   └── [x] Show readable data type names
 ├── [x] Save state between commands
-├── [ ] status command
+├── [x] status command
 ├── [ ] add command (one, many, or all data types)
 ├── [ ] remove command (one, many, or all data types)
 ├── [ ] export command
