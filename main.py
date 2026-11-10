@@ -3,6 +3,7 @@ import sys
 import argparse
 
 from commands.mount import mount
+from commands.status import status
 from core.errors import AHCliError
 
 
@@ -34,7 +35,7 @@ def main() -> None:
             case "add":
                 raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "status":
-                raise AHCliError(f"'{args.command}': command isn't implemented yet")
+                status()
             case "edit":
                 raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "remove":
