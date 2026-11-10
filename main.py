@@ -4,6 +4,7 @@ import argparse
 
 from commands.mount import mount
 from commands.status import status
+from commands.add import add
 from core.errors import AHCliError
 
 
@@ -15,25 +16,27 @@ def main() -> None:
     parser_mount.add_argument("path", type=Path)
 
     parser_add = subparsers.add_parser("add")
-    parser_add.add_argument("data_types")
+    group_add = parser_add.add_mutually_exclusive_group(required=True)
+    group_add.add_argument("data_names", type=str, nargs="*")
+    group_add.add_argument("-a", "--all", action="store_true")
 
     subparsers.add_parser("status")
 
     parser_edit = subparsers.add_parser("edit")
-    parser_edit.add_argument("data_types")
+    parser_edit.add_argument("data_names")
 
     parser_remove = subparsers.add_parser("remove")
-    parser_remove.add_argument("data_types")
+    parser_remove.add_argument("data_names")
 
     subparsers.add_parser("export")
 
-    args = parser.parse_args() 
+    args = parser.parse_args()
     try:
         match args.command:
             case "mount":
                 mount(args.path)
             case "add":
-                raise AHCliError(f"'{args.command}': command isn't implemented yet")
+                add(args.data_names, args.all)
             case "status":
                 status()
             case "edit":
