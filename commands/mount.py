@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from core.errors import AHCliError
+from core.state import init_state
 
 
 PREFIXES = [
@@ -72,3 +73,4 @@ def short_name(identifier: str) -> str:
 def mount(path: Path) -> None:
     validate_file(path)
     summary = build_summary(path)
+    init_state(path, summary)
