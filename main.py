@@ -5,6 +5,7 @@ import argparse
 from commands.mount import mount
 from commands.status import status
 from commands.add import add
+from commands.remove import remove
 from core.errors import AHCliError
 
 
@@ -26,7 +27,9 @@ def main() -> None:
     parser_edit.add_argument("data_names")
 
     parser_remove = subparsers.add_parser("remove")
-    parser_remove.add_argument("data_names")
+    group_remove = parser_remove.add_mutually_exclusive_group(required=True)
+    group_remove.add_argument("data_names", type=str, nargs="*")
+    group_remove.add_argument("-a", "--all", action="store_true")
 
     subparsers.add_parser("export")
 
@@ -42,7 +45,7 @@ def main() -> None:
             case "edit":
                 raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case "remove":
-                raise AHCliError(f"'{args.command}': command isn't implemented yet")
+                remove(args.data_names, args.all)
             case "export":
                 raise AHCliError(f"'{args.command}': command isn't implemented yet")
             case _:

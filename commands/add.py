@@ -1,10 +1,8 @@
-from core.state import get_state, add_staged
+from core.state import get_all_summary_names, add_staged
 
 
 def add(names: list[str], all_flag: bool) -> None:
-    state = get_state()
-
     if all_flag:
-        add_staged(list(state["summary"]))
+        add_staged(get_all_summary_names())
     else:
         add_staged(names)

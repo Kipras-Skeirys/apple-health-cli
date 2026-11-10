@@ -29,12 +29,24 @@ def init_state(source: Path, summary: dict) -> None:
         "summary": summary,
         "staged": [],
     }
-    
+
     _save(state)
 
 
 def get_state() -> dict:
     return _load()
+
+
+def get_all_summary_names() -> list[str]:
+    state = _load()
+
+    return list(state["summary"])
+
+
+def get_all_staged_names() -> list[str]:
+    state = _load()
+
+    return state["staged"]
 
 
 def add_staged(names: list[str]) -> None:
@@ -60,5 +72,13 @@ def remove_staged(names: list[str]) -> None:
             continue
 
         state["staged"].remove(name)
+
+    _save(state)
+
+
+def remove_all_staged() -> None:
+    state = _load()
+
+    state["staged"] = []
 
     _save(state)
