@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 from core.errors import AHCliError
 
@@ -12,7 +13,7 @@ PREFIXES = [
 ]
 
 
-def validate_file(path):
+def validate_file(path: Path) -> None:
     if not path.exists():
         raise AHCliError(f"'{path}' does not exist")
     if not path.is_file():
@@ -27,7 +28,7 @@ def validate_file(path):
         raise AHCliError(f"'{path}' does not contain valid Apple Health data")
 
 
-def build_summary(path) -> dict:
+def build_summary(path: Path) -> dict:
     summary = {}
 
     context = ET.iterparse(path, events=("start", "end"))
@@ -60,7 +61,7 @@ def build_summary(path) -> dict:
     return summary
 
 
-def short_name(identifier) -> str:
+def short_name(identifier: str) -> str:
     for prefix in PREFIXES:
         if identifier.startswith(prefix):
             return identifier.removeprefix(prefix)
@@ -68,6 +69,6 @@ def short_name(identifier) -> str:
     return identifier
 
 
-def mount(path):
+def mount(path: Path) -> None:
     validate_file(path)
     summary = build_summary(path)

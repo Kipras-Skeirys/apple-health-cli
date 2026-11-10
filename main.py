@@ -6,7 +6,7 @@ from commands.mount import mount
 from core.errors import AHCliError
 
 
-def main():
+def main() ->  None:
     parser = argparse.ArgumentParser(description="Edit Apple Health export data")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
