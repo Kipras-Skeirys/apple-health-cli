@@ -6,7 +6,7 @@ A command-line tool for editing Apple Health exports.<br>
 Keep only the data and date ranges you need, and remove personal information.
 
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow?style=flat-square)
-![Stage 1](https://img.shields.io/badge/stage%201-12%2F13-yellow?style=flat-square)
+![Stage 2](https://img.shields.io/badge/stage%202-0%2F17-yellow?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 
 </div>
@@ -43,7 +43,7 @@ Here, **staging data** means saving it as part of your export selection. For exa
 
 ## How to use
 
-> **Note:** Stage 1 is still in progress, so not all commands work yet. See the [roadmap](#roadmap) for current progress.
+> **Note:** The project is currently at Stage 2 of development, so some commands may not work as expected. See the [roadmap](#roadmap) for current project status.
 
 Requires Python 3.10 or newer. No other dependencies.
 
@@ -77,44 +77,44 @@ python3 main.py export                               # write the filtered XML
 ┃       schema using the Linux CLI
 ┣━━ [x] Set up the project repo with a README
 ┃
-◐  STAGE 1 · Basic functionality (MVP) ··············· IN PROGRESS
-│  ██████████████████░░  12/13
+●  STAGE 1 · Basic functionality (MVP) ······················ DONE
+┃  ████████████████████  13/13
+┃
+┣━━ [x] mount command
+┃   ┣━━ [x] Accept file with valid Apple Health data
+┃   ┣━━ [x] Count each data type
+┃   ┗━━ [x] Show readable data type names
+┣━━ [x] Save state between commands
+┣━━ [x] status command
+┣━━ [x] add command (one, many, or all data types)
+┣━━ [x] remove command (one, many, or all data types)
+┣━━ [x] export command
+┃   ┣━━ [x] Write staged records to a new XML file, schema intact
+┃   ┗━━ [x] Use the current directory or a custom path
+┣━━ [x] Handle common errors
+┣━━ [x] Usage docs and a sample export.xml
+┃
+◐  STAGE 2 · Full workflow, formats, and privacy ····· IN PROGRESS
+│  ░░░░░░░░░░░░░░░░░░░░  0/17
 │
-├── [x] mount command
-│   ├── [x] Accept file with valid Apple Health data
-│   ├── [x] Count each data type
-│   └── [x] Show readable data type names
-├── [x] Save state between commands
-├── [x] status command
-├── [x] add command (one, many, or all data types)
-├── [x] remove command (one, many, or all data types)
-├── [x] export command
-│   ├── [x] Write staged records to a new XML file, schema intact
-│   └── [x] Use the current directory or a custom path
-├── [ ] Handle common errors
-├── [x] Usage docs and a sample export.xml
+├── [ ] Estimated size per data type
+├── [ ] Accept a .zip or directory
+├── [ ] Date ranges (start and end)
+├── [ ] edit command
+├── [ ] Workouts and activity summaries
+├── [ ] Detect a changed or moved source
+├── [ ] Drop unstaged records nested as duplicates
+├── [ ] Tests
+├── [ ] Export formats
+│   ├── [ ] JSON
+│   ├── [ ] CSV
+│   ├── [ ] Relational database
+│   └── [ ] Document database
+├── [ ] Edit sources per data type
+├── [ ] Remove personal information
+│   ├── [ ] Strip the <Me> element
+│   └── [ ] Anonymize device and source names
 │
-○  STAGE 2 · Full workflow, formats, and privacy ········· PLANNED
-┆  ░░░░░░░░░░░░░░░░░░░░  0/17
-┆
-┆╌╌ [ ] Estimated size per data type
-┆╌╌ [ ] Accept a .zip or directory
-┆╌╌ [ ] Date ranges (start and end)
-┆╌╌ [ ] edit command
-┆╌╌ [ ] Workouts and activity summaries
-┆╌╌ [ ] Detect a changed or moved source
-┆╌╌ [ ] Drop unstaged records nested as duplicates
-┆╌╌ [ ] Tests
-┆╌╌ [ ] Export formats
-┆   ┆╌╌ [ ] JSON
-┆   ┆╌╌ [ ] CSV
-┆   ┆╌╌ [ ] Relational database
-┆   ┆╌╌ [ ] Document database
-┆╌╌ [ ] Edit sources per data type
-┆╌╌ [ ] Remove personal information
-┆   ┆╌╌ [ ] Strip the <Me> element
-┆   ┆╌╌ [ ] Anonymize device and source names
-┆
 ○  STAGE 3 · Advanced data aggregation ··················· PLANNED
 ┆  ░░░░░░░░░░░░░░░░░░░░  0/5
 ┆
