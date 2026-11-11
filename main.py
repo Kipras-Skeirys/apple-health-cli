@@ -6,7 +6,12 @@ from commands.mount import mount
 from commands.status import status
 from commands.add import add
 from commands.remove import remove
+from commands.export import export
 from core.errors import AHCliError
+
+
+def absolute_path(path: str) -> Path:
+    return Path(path).expanduser().resolve()
 
 
 def main() -> None:
@@ -14,7 +19,7 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     parser_mount = subparsers.add_parser("mount")
-    parser_mount.add_argument("path", type=Path)
+    parser_mount.add_argument("path", type=absolute_path)
 
     parser_add = subparsers.add_parser("add")
     group_add = parser_add.add_mutually_exclusive_group(required=True)
@@ -31,9 +36,11 @@ def main() -> None:
     group_remove.add_argument("data_names", type=str, nargs="*")
     group_remove.add_argument("-a", "--all", action="store_true")
 
-    subparsers.add_parser("export")
+    parser_export = subparsers.add_parser("export")
+    parser_export.add_argument("export_path", type=absolute_path, nargs="?", default=".")
 
     args = parser.parse_args()
+
     try:
         match args.command:
             case "mount":
@@ -47,7 +54,7 @@ def main() -> None:
             case "remove":
                 remove(args.data_names, args.all)
             case "export":
-                raise AHCliError(f"'{args.command}': command isn't implemented yet")
+                export(args.export_path)
             case _:
                 raise AHCliError(f"'{args.command}': command does not exist")
     except AHCliError as e:

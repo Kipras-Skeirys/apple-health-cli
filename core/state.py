@@ -25,7 +25,7 @@ def _load() -> dict:
 
 def init_state(source: Path, summary: dict) -> None:
     state = {
-        "source": str(source.expanduser().resolve()),
+        "source": str(source),
         "summary": summary,
         "staged": [],
     }
@@ -35,6 +35,12 @@ def init_state(source: Path, summary: dict) -> None:
 
 def get_state() -> dict:
     return _load()
+
+
+def get_source() -> Path:
+    state = _load()
+
+    return Path(state["source"])
 
 
 def get_all_summary_names() -> list[str]:
@@ -70,9 +76,8 @@ def remove_staged(names: list[str]) -> None:
     for name in names:
         if name not in state["staged"]:
             continue
-
         state["staged"].remove(name)
-
+    
     _save(state)
 
 
