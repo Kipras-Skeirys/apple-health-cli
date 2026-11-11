@@ -3,15 +3,7 @@ from pathlib import Path
 
 from core.errors import AHCliError
 from core.state import init_state
-
-
-PREFIXES = [
-    "HKQuantityTypeIdentifier",
-    "HKCategoryTypeIdentifier",
-    "HKCharacteristicTypeIdentifier",
-    "HKWorkoutActivityType",
-    "HKDataType",
-]
+from core.names import short_name
 
 
 def validate_file(path: Path) -> None:
@@ -60,14 +52,6 @@ def build_summary(path: Path) -> dict:
         raise AHCliError(f"'{path}' appears to be damaged or incomplete")
 
     return summary
-
-
-def short_name(identifier: str) -> str:
-    for prefix in PREFIXES:
-        if identifier.startswith(prefix):
-            return identifier.removeprefix(prefix)
-
-    return identifier
 
 
 def mount(path: Path) -> None:
