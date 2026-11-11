@@ -66,6 +66,8 @@ def main() -> None:
     except OSError as e:
         print(e, file=sys.stderr)
         sys.exit(1)
+    except KeyboardInterrupt:
+        sys.exit(130)
 
 
 if __name__ == "__main__":

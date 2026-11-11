@@ -18,8 +18,16 @@ def _load() -> dict:
 
     try:
         with open(STATE_PATH, "r") as f:
-            return json.load(f)
+            state = json.load(f)
+            _check_state_schema(state)
+            return state
     except json.JSONDecodeError:
+        raise AHCliError("The state file is damaged. Run 'mount <path>' again")
+
+
+def _check_state_schema(state: dict) -> None:
+    required_keys = {"source", "summary", "staged"}
+    if not isinstance(state, dict) or not all(key in state for key in required_keys):
         raise AHCliError("The state file is damaged. Run 'mount <path>' again")
 
 
@@ -77,7 +85,7 @@ def remove_staged(names: list[str]) -> None:
         if name not in state["staged"]:
             continue
         state["staged"].remove(name)
-    
+
     _save(state)
 
 
