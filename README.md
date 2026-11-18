@@ -94,43 +94,69 @@ python3 main.py export                               # write the filtered XML
 ┣━━ [x] Handle common errors
 ┣━━ [x] Usage docs and a sample export.xml
 ┃
-◐  STAGE 2 · Full workflow, formats, and privacy ····· IN PROGRESS
+◐  STAGE 2 · Core workflow and tests ················· IN PROGRESS
 │  ░░░░░░░░░░░░░░░░░░░░  0/17
 │
-├── [ ] Estimated size per data type
-├── [ ] Accept a .zip or directory
+├── [ ] Estimate size
+│   ├── [ ] Estimated size per data type
+│   └── [ ] Show size change against estimated export size (old -> new)
 ├── [ ] Date ranges (start and end)
 ├── [ ] edit command
-├── [ ] Workouts and activity summaries
-├── [ ] Detect a changed or moved source
-├── [ ] Drop unstaged records nested as duplicates
-├── [ ] Tests
-├── [ ] Export formats
-│   ├── [ ] JSON
-│   ├── [ ] CSV
-│   ├── [ ] Relational database
-│   └── [ ] Document database
-├── [ ] Edit sources per data type
-├── [ ] Remove personal information
+├── [ ] Remove personal information (new command or option)
 │   ├── [ ] Strip the <Me> element
 │   └── [ ] Anonymize device and source names
+├── [ ] Support all top-level elements, not only <Records>
+├── [ ] Handle nested duplicate records
+├── [ ] Tests
+│   ├── [ ] Set up unittest and a tests folder
+│   ├── [ ] Unit tests for pure functions
+│   ├── [ ] Tests for error cases
+│   ├── [ ] Isolate the state file in tests
+│   ├── [ ] End-to-end CLI tests
+│   └── [ ] Regression tests for fixed bugs
 │
-○  STAGE 3 · Advanced data aggregation ··················· PLANNED
-┆  ░░░░░░░░░░░░░░░░░░░░  0/5
+○  STAGE 3 · Data aggregation ···························· PLANNED
+┆  ░░░░░░░░░░░░░░░░░░░░  0/7
 ┆
 ┆╌╌ [ ] Daily, weekly, monthly, and yearly aggregates
 ┆   ┆╌╌ [ ] Choose a calculation per metric
 ┆   ┆╌╌ [ ] Handle overlapping data sources
+┆╌╌ [ ] Edit sources(phone, watch, third-party app, etc.) per data type
+┆╌╌ [ ] Data categories
 ┆╌╌ [ ] Compare results with Apple Health
 ┆╌╌ [ ] Measure time and peak memory
 ┆
-○  STAGE 4 · Final touches ······························· PLANNED
-┆  ░░░░░░░░░░░░░░░░░░░░  0/6
+○  STAGE 4 · Input and export formats ···················· PLANNED
+┆  ░░░░░░░░░░░░░░░░░░░░  0/17
 ┆
+┆╌╌ [ ] Accept a .zip or directory
+┆   ┆╌╌ [ ] Limit directory search depth
+┆   ┆╌╌ [ ] Resist decompression bombs
+┆╌╌ [ ] Harden XML parsing
+┆   ┆╌╌ [ ] Billion laughs (entity expansion)
+┆   ┆╌╌ [ ] Quadratic blowup
+┆   ┆╌╌ [ ] External entities (XXE)
+┆   ┆╌╌ [ ] External DTD retrieval
+┆╌╌ [ ] Export formats
+┆   ┆╌╌ [ ] JSON
+┆   ┆╌╌ [ ] JSON Lines
+┆   ┆╌╌ [ ] CSV
+┆   ┆╌╌ [ ] SQLite database
+┆   ┆╌╌ [ ] Plain text report
+┆   ┆╌╌ [ ] Gzip compression
+┆╌╌ [ ] Safe file writing
+┆╌╌ [ ] Export to stdout (export -)
+┆
+○  STAGE 5 · Usability and packaging ····················· PLANNED
+┆  ░░░░░░░░░░░░░░░░░░░░  0/9
+┆
+┆╌╌ [ ] ignore command (unstage and lock data types or categories)
+┆╌╌ [ ] hide command (hide data types or categories from status)
 ┆╌╌ [ ] Reusable selection presets
-┆╌╌ [ ] Installable package
-┆╌╌ [ ] Per-platform app data folder
-┆╌╌ [ ] Confirm before overwriting an export
 ┆╌╌ [ ] Notify about unknown or already staged data types
+┆╌╌ [ ] Confirm before overwriting an export
+┆╌╌ [ ] Detect a changed (SHA-256 fingerprint) or moved source
 ┆╌╌ [ ] Stylized CLI output
+┆╌╌ [ ] Per-platform app data folder
+┆╌╌ [ ] Installable package
 ```
