@@ -21,6 +21,10 @@ def validate_file(path: Path) -> None:
         raise AHCliError(f"'{path}' does not contain valid Apple Health data")
 
 
+def get_size(elem: ET.Element) -> int:
+    return len(ET.tostring(elem, encoding="utf-8"))
+
+
 def build_summary(path: Path) -> dict:
     summary = {}
 
@@ -31,23 +35,25 @@ def build_summary(path: Path) -> dict:
         root = None
 
         for event, elem in context:
-            if event == "end":
-                depth -= 1
-                if depth == 1:
-                    root.clear()
-                else:
-                    elem.clear()
+            if event == "start":
+                if root is None:
+                    root = elem
+                depth += 1
                 continue
-
-            if root is None:
-                root = elem
-            depth += 1
 
             if elem.tag == "Record" and depth == 2:
                 data_type_name = short_name(elem.get("type"))
                 if data_type_name not in summary:
-                    summary[data_type_name] = {"count": 0}
+                    summary[data_type_name] = {
+                        "count": 0,
+                        "size": 0,
+                    }
+                summary[data_type_name]["size"] += get_size(elem)
                 summary[data_type_name]["count"] += 1
+
+            depth -= 1
+            if depth == 1:
+                root.clear()
     except ET.ParseError:
         raise AHCliError(f"'{path}' appears to be damaged or incomplete")
 

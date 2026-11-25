@@ -1,7 +1,13 @@
 from core.state import get_state
+from core.formatting import format_size
 
 
-def status():
+def _format_row(name: str, value: dict, width: int) -> str:
+    name_string = f"{name} ({value['count']})"
+    return f"\t\t{name_string:<{width}} | {format_size(value['size'])}"
+
+
+def status() -> None:
     state = get_state()
     available = {}
     staged = {}
@@ -12,13 +18,15 @@ def status():
         else:
             available[name] = value
 
-    width = len(max(state["summary"], key=len, default="")) + 2
+    name_width = len(max(state["summary"], key=len, default=""))
+    count_width = len(max((str(value["count"]) for value in state["summary"].values()), key=len, default=""))
+    width = name_width + count_width + 5
 
     print("\n")
     print(f"\tAvailable ({len(available)})")
 
     for name, value in available.items():
-        print(f"\t\t{name:<{width}} | {value['count']}")
+        print(_format_row(name, value, width))
 
     print(f"\n\tStaged ({len(staged)})")
 
@@ -26,6 +34,6 @@ def status():
         print("\t\tNothing staged. Use 'add <data types>'")
     else:
         for name, value in staged.items():
-            print(f"\t\t{name:<{width}} | {value['count']}")
+            print(_format_row(name, value, width))
 
     print("\n")
