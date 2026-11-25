@@ -6,7 +6,7 @@ A command-line tool for editing Apple Health exports.<br>
 Keep only the data and date ranges you need, and remove personal information.
 
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow?style=flat-square)
-![Stage 2](https://img.shields.io/badge/stage%202-0%2F17-yellow?style=flat-square)
+![Stage 2](https://img.shields.io/badge/stage%202-1%2F18-yellow?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 
 </div>
@@ -95,11 +95,12 @@ python3 main.py export                               # write the filtered XML
 ┣━━ [x] Usage docs and a sample export.xml
 ┃
 ◐  STAGE 2 · Core workflow and tests ················· IN PROGRESS
-│  ░░░░░░░░░░░░░░░░░░░░  0/17
+│  █░░░░░░░░░░░░░░░░░░░  1/18
 │
 ├── [ ] Estimate size
-│   ├── [ ] Estimated size per data type
+│   ├── [x] Estimated size per data type
 │   └── [ ] Show size change against estimated export size (old -> new)
+├── [ ] Fix missing line breaks between exported elements
 ├── [ ] Date ranges (start and end)
 ├── [ ] edit command
 ├── [ ] Remove personal information (new command or option)
